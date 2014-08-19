@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/08/2014 01:55:05 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="org.model.dao.Moneda" table="MONEDA">
+        <id name="idMoneda" type="big_decimal">
+            <column name="ID_MONEDA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="simbolo" type="string">
+            <column name="SIMBOLO" length="5" />
+        </property>
+        <property name="denominacion" type="string">
+            <column name="DENOMINACION" length="30" />
+        </property>
+        <set name="valorTasaIntereses" table="VALOR_TASA_INTERES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_MONEDA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="org.model.dao.ValorTasaInteres" />
+        </set>
+        <set name="tasaCambiosForIdMonedaDestino" table="TASA_CAMBIO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_MONEDA_DESTINO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="org.model.dao.TasaCambio" />
+        </set>
+        <set name="tasaCambiosForIdMonedaOrigen" table="TASA_CAMBIO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_MONEDA_ORIGEN" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="org.model.dao.TasaCambio" />
+        </set>
+    </class>
+</hibernate-mapping>

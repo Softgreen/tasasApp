@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/08/2014 01:55:05 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="org.model.dao.TasaCambio" table="TASA_CAMBIO">
+        <id name="idTasaCambio" type="big_decimal">
+            <column name="ID_TASA_CAMBIO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="monedaByIdMonedaDestino" class="org.model.dao.Moneda" fetch="select">
+            <column name="ID_MONEDA_DESTINO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="monedaByIdMonedaOrigen" class="org.model.dao.Moneda" fetch="select">
+            <column name="ID_MONEDA_ORIGEN" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="valor" type="big_decimal">
+            <column name="VALOR" precision="6" scale="4" not-null="true" />
+        </property>
+        <property name="operacion" type="string">
+            <column name="OPERACION" length="6" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
