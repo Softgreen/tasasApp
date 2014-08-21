@@ -101,13 +101,13 @@
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
 			in JBoss AS 7 -->
-		<!-- 
+		<!-- <dependency> <groupId>org.jboss.spec.javax.ws.rs</groupId> <artifactId>jboss-jaxrs-api_1.1_spec</artifactId> 
+			<scope>provided</scope> </dependency> -->
 		<dependency>
-			<groupId>org.jboss.spec.javax.ws.rs</groupId>
-			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-			<scope>provided</scope>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-jaxrs</artifactId>
+			<version>8.1.0.Final</version>
 		</dependency>
-		 -->
 
 		<!-- Import the JPA API, we use provided scope as the API is included in 
 			JBoss AS 7 -->
@@ -171,7 +171,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Needed for running tests (you may also use TestNG) -->
 		<dependency>
 			<groupId>junit</groupId>

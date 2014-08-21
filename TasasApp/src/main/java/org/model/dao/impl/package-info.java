@@ -5,4 +5,4 @@
  * @author Huertas
  *
  */
-package org.type;
+package org.model.dao.impl;

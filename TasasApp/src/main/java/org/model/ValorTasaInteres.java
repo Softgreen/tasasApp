@@ -1,4 +1,4 @@
-package org.model.dao;
+package org.model;
 
 // Generated 16/08/2014 01:49:33 PM by Hibernate Tools 4.0.0
 
@@ -168,7 +168,10 @@ public class ValorTasaInteres implements java.io.Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idValorTasaInteres == null) ? 0 : idValorTasaInteres.hashCode());
+		result = prime
+				* result
+				+ ((idValorTasaInteres == null) ? 0 : idValorTasaInteres
+						.hashCode());
 		return result;
 	}
 

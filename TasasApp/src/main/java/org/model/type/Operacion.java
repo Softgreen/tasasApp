@@ -1,4 +1,4 @@
-package org.type;
+package org.model.type;
 
 public enum Operacion {
 
