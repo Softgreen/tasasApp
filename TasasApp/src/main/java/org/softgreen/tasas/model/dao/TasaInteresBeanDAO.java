@@ -45,7 +45,7 @@ import org.softgreen.tasas.model.TasaInteres;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TasaInteresBeanDAO implements DAO<Object, TasaInteres> {
+public class TasaInteresBeanDAO implements DAO<String, TasaInteres> {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -60,7 +60,7 @@ public class TasaInteresBeanDAO implements DAO<Object, TasaInteres> {
 		this.em.remove(t);
 	}
 
-	public TasaInteres find(Object id) {
+	public TasaInteres find(String id) {
 		return this.em.find(TasaInteres.class, id);
 	}
 

@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 import org.softgreen.tasas.model.Servicio;
 
 @Remote
-public interface ServicioService extends AbstractService<Integer, Servicio> {
+public interface ServicioService extends AbstractService<String, Servicio> {
 
 }

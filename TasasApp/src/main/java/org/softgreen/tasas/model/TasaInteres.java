@@ -9,19 +9,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,9 +24,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TASA_INTERES")
-@GenericGenerator(name = "TasaInteresGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-		@Parameter(name = "prefer_sequence_per_entity", value = "true"),
-		@Parameter(name = "optimizer ", value = "pooled") })
 public class TasaInteres implements java.io.Serializable {
 
 	/**
@@ -40,7 +31,6 @@ public class TasaInteres implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer idTasaInteres;
 	private String abreviatura;
 	private String denominacion;
 	private String descripcion;
@@ -52,22 +42,11 @@ public class TasaInteres implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "TasaInteresGenerator")
-	@Column(name = "ID_TASA_INTERES", unique = true, nullable = false)
-	public Integer getIdTasaInteres() {
-		return this.idTasaInteres;
-	}
-
-	public void setIdTasaInteres(Integer idTasaInteres) {
-		this.idTasaInteres = idTasaInteres;
-	}
-
 	@NotNull
 	@NotBlank
 	@NotEmpty
 	@Size(min = 1, max = 10)
-	@NaturalId
-	@Column(name = "ABREVIATURA", nullable = false, length = 10)
+	@Column(name = "ABREVIATURA", unique = true, nullable = false, length = 10)
 	public String getAbreviatura() {
 		return this.abreviatura;
 	}
@@ -80,6 +59,7 @@ public class TasaInteres implements java.io.Serializable {
 	@NotBlank
 	@NotEmpty
 	@Size(min = 1, max = 30)
+	@NaturalId
 	@Column(name = "DENOMINACION", nullable = false, length = 30)
 	public String getDenominacion() {
 		return this.denominacion;
@@ -106,17 +86,6 @@ public class TasaInteres implements java.io.Serializable {
 
 	public void setValorTasaIntereses(Set valorTasaIntereses) {
 		this.valorTasaIntereses = valorTasaIntereses;
-	}
-
-	@Version
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@Column(name = "OPTLOCK")
-	public Date getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(Date version) {
-		this.version = version;
 	}
 
 	@Override

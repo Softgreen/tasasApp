@@ -45,7 +45,7 @@ import org.softgreen.tasas.model.TipoServicio;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TipoServicioBeanDAO implements DAO<Integer, TipoServicio> {
+public class TipoServicioBeanDAO implements DAO<String, TipoServicio> {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -60,7 +60,7 @@ public class TipoServicioBeanDAO implements DAO<Integer, TipoServicio> {
 		this.em.remove(t);
 	}
 
-	public TipoServicio find(Integer id) {
+	public TipoServicio find(String id) {
 		return this.em.find(TipoServicio.class, id);
 	}
 

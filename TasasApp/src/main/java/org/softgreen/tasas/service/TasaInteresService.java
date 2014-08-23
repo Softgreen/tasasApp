@@ -6,6 +6,6 @@ import org.softgreen.tasas.model.TasaInteres;
 
 @Remote
 public interface TasaInteresService extends
-		AbstractService<Integer, TasaInteres> {
+		AbstractService<String, TasaInteres> {
 
 }

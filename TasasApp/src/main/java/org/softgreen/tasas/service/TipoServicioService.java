@@ -6,6 +6,6 @@ import org.softgreen.tasas.model.TipoServicio;
 
 @Remote
 public interface TipoServicioService extends
-		AbstractService<Integer, TipoServicio> {
+		AbstractService<String, TipoServicio> {
 
 }

@@ -15,7 +15,6 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 
 import org.softgreen.dao.DAO;
-import org.softgreen.dao.QueryParameter;
 import org.softgreen.exception.NonexistentEntityException;
 import org.softgreen.exception.PreexistingEntityException;
 import org.softgreen.exception.RollbackFailureException;
@@ -30,13 +29,13 @@ import org.softgreen.tasas.service.TipoServicioService;
 public class TipoServicioServiceBean implements TipoServicioService {
 
 	@Inject
-	private DAO<Integer, TipoServicio> tipoServicioDAO;
+	private DAO<String, TipoServicio> tipoServicioDAO;
 
 	@Inject
 	private Validator validator;
 
 	@Override
-	public TipoServicio findById(Integer id) {
+	public TipoServicio findById(String id) {
 		return tipoServicioDAO.find(id);
 	}
 
@@ -46,34 +45,31 @@ public class TipoServicioServiceBean implements TipoServicioService {
 	}
 
 	@Override
-	public Integer create(TipoServicio t) throws PreexistingEntityException,RollbackFailureException {
+	public String create(TipoServicio t) throws PreexistingEntityException,RollbackFailureException {
 		Set<ConstraintViolation<TipoServicio>> violations = validator.validate(t);
 		if (!violations.isEmpty()) {
 			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
 		}
+		
 		String denominacion = t.getDenominacion();
-		QueryParameter queryParameter = QueryParameter.with("denominacion", denominacion);
-		List<TipoServicio> list = tipoServicioDAO.findByNamedQuery(TipoServicio.findByDenominacion, queryParameter.parameters());
-		if (list.size() != 0) {
+		TipoServicio tipoServicio = tipoServicioDAO.find(denominacion);
+		if (tipoServicio == null) {
 			tipoServicioDAO.create(t);
-			return t.getIdTipoServicio();
+			return t.getDenominacion();
 		} else {
 			throw new PreexistingEntityException("Tipo servicio ya existente");
 		}
 	}
 
 	@Override
-	public void update(Integer id, TipoServicio t)throws NonexistentEntityException, PreexistingEntityException,RollbackFailureException {
+	public void update(String id, TipoServicio t)throws NonexistentEntityException, PreexistingEntityException,RollbackFailureException {
 		Set<ConstraintViolation<TipoServicio>> violations = validator.validate(t);
 		if (!violations.isEmpty()) {
 			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
 		}
 		TipoServicio tipoServicio = tipoServicioDAO.find(id);
 		if (tipoServicio != null) {			
-			String denominacion = t.getDenominacion();
-			QueryParameter queryParameter = QueryParameter.with("denominacion",denominacion);
-			List<TipoServicio> list = tipoServicioDAO.findByNamedQuery(TipoServicio.findByDenominacion,queryParameter.parameters());
-			if (list.size() != 0 && id.equals(tipoServicio.getIdTipoServicio())) {
+			if (tipoServicio.equals(t)) {
 				tipoServicioDAO.update(t);				
 			} else {
 				throw new PreexistingEntityException("Tipo de servicio ya existente");
@@ -84,7 +80,7 @@ public class TipoServicioServiceBean implements TipoServicioService {
 	}
 
 	@Override
-	public void delete(Integer id) throws NonexistentEntityException, RollbackFailureException {
+	public void delete(String id) throws NonexistentEntityException, RollbackFailureException {
 		TipoServicio tipoServicio = tipoServicioDAO.find(id);
 		if(tipoServicio != null) { 
 			Set<Servicio> servicios = tipoServicio.getServicios();

@@ -9,21 +9,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -32,10 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TIPO_SERVICIO")
-@GenericGenerator(name = "TipoServicioGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-		@Parameter(name = "prefer_sequence_per_entity", value = "true"),
-		@Parameter(name = "optimizer ", value = "pooled") })
-@NamedQueries({ @NamedQuery(name = TipoServicio.findByDenominacion, query = "SELECT t FROM TipoServicio t WHERE t.denominacion = :denominacion") })
 public class TipoServicio implements java.io.Serializable {
 
 	/**
@@ -45,7 +32,6 @@ public class TipoServicio implements java.io.Serializable {
 
 	public final static String findByDenominacion = "TipoServicio.findByDenominacion";
 
-	private Integer idTipoServicio;
 	private String denominacion;
 	private String descripcion;
 	private Set servicios = new HashSet(0);
@@ -56,22 +42,11 @@ public class TipoServicio implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "TipoServicioGenerator")
-	@Column(name = "ID_TIPO_SERVICIO", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getIdTipoServicio() {
-		return this.idTipoServicio;
-	}
-
-	public void setIdTipoServicio(Integer idTipoServicio) {
-		this.idTipoServicio = idTipoServicio;
-	}
-
 	@NotNull
 	@NotEmpty
 	@NotBlank
 	@Size(min = 1, max = 30)
-	@NaturalId
-	@Column(name = "DENOMINACION", nullable = false, length = 30)
+	@Column(name = "DENOMINACION", unique = true, nullable = false, length = 30)
 	public String getDenominacion() {
 		return this.denominacion;
 	}
@@ -97,17 +72,6 @@ public class TipoServicio implements java.io.Serializable {
 
 	public void setServicios(Set servicios) {
 		this.servicios = servicios;
-	}
-
-	@Version
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@Column(name = "OPTLOCK")
-	public Date getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(Date version) {
-		this.version = version;
 	}
 
 	@Override
