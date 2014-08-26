@@ -14,6 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +27,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TIPO_SERVICIO")
+@XmlRootElement(name = "tipoServicio")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class TipoServicio implements java.io.Serializable {
 
 	/**
@@ -65,6 +71,7 @@ public class TipoServicio implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
+	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoServicio")
 	public Set<Servicio> getServicios() {
 		return this.servicios;
@@ -78,8 +85,7 @@ public class TipoServicio implements java.io.Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((denominacion == null) ? 0 : denominacion.hashCode());
+		result = prime * result + ((denominacion == null) ? 0 : denominacion.hashCode());
 		return result;
 	}
 

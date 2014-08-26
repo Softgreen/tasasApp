@@ -248,13 +248,6 @@ app.ApiProvider.prototype.$get = ['$injector', function($injector) {
 
     return api;
 }];
-/*******************************************************************************/
-
-app.TipoServicio = function(denominacion, descripcion){
-    this.denominacion = denominacion;
-    this.descripcion = descripcion;
-};
-app.TipoServicio.prototype = Object.create(app.ApiModel);
 
 /******************************************************************************/
 
@@ -267,29 +260,3 @@ app.core.config(function($provide) {
 });
 
 /******************************************************************************/
-
-// Example of creating an angular module for your app or part of your app.
-// A provider can be injected into a config function, which is run before
-// normal services are instantiated.
-
-app.component = angular.module('component', ['core']);
-
-app.component.config(function(apiProvider) {
-    apiProvider.setBaseRoute('my/app/api/');
-
-    apiProvider.endpoint('songs').
-        route('songs/:id').
-        model(app.Song);
-
-    apiProvider.endpoint('albums').
-        route('albums/:id').
-        model(app.Album);
-});
-
-
-/******************************************************************************/
-
-// Example of making a request with the api service in a controller.
-app.SongController = function($scope, $routeParams, api) {
-    var songs = api.songs.get({id: $routeParams.id});
-};

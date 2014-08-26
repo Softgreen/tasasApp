@@ -23,8 +23,7 @@ angular
         apiProvider.setBaseRoute('http://localhost:8080/TasasApp/rest/');
 
         apiProvider.endpoint('tiposServicio').
-            route('tiposServicio/:id').
-            model(app.TipoServicio);
+            route('tiposServicio/:id');
 
         $routeProvider
             .when('/', {

@@ -10,6 +10,7 @@ import org.softgreen.exception.NonexistentEntityException;
 import org.softgreen.exception.PreexistingEntityException;
 import org.softgreen.exception.RollbackFailureException;
 import org.softgreen.tasas.model.TipoServicio;
+import org.softgreen.tasas.rest.Jsend;
 import org.softgreen.tasas.rest.TipoServicioREST;
 import org.softgreen.tasas.service.TipoServicioService;
 
@@ -21,7 +22,9 @@ public class TipoServicioRESTService implements TipoServicioREST {
 	@Override
 	public Response findAll() {
 		List<TipoServicio> list = tipoServicioService.findAll();
-		Response response = Response.status(Status.OK).entity(list).build();
+		Jsend jsend = Jsend.getSuccessJSend();
+		jsend.setData(list);
+		Response response = Response.status(Status.OK).entity(jsend).build();
 		return response;
 	}
 

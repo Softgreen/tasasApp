@@ -18,6 +18,7 @@ angular.module('tasasApp')
         $scope.gridOptions = { data: 'myData' };
 
 
-        var tiposServicio = api.tiposServicio.get({id: 1});
+        $scope.tiposServicio = api.tiposServicio.get();
+        console.log($scope.tiposServicio);
 
     });
