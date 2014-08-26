@@ -16,8 +16,18 @@
  */
 package org.softgreen.tasas.rest;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+
+import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+import org.softgreen.tasas.rest.impl.ClienteRESTService;
+import org.softgreen.tasas.rest.impl.ServicioRESTService;
+import org.softgreen.tasas.rest.impl.TasaInteresRESTService;
+import org.softgreen.tasas.rest.impl.TipoServicioRESTService;
+import org.softgreen.tasas.rest.impl.ValorTasaInteresRESTService;
 
 /**
  * A class extending {@link Application} and annotated with @ApplicationPath is
@@ -31,4 +41,26 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("/rest")
 public class JaxRsActivator extends Application {
 
+	private Set<Object> singletons = new HashSet<>();
+
+	@Override
+	public Set<Object> getSingletons() {
+		CorsFilter filter = new CorsFilter();
+		filter.getAllowedOrigins().add("http://localhost:8080");
+		filter.getAllowedOrigins().add("http://localhost:9000");
+		filter.getAllowedOrigins().add("http://localhost:63342");
+		singletons.add(filter);
+		return singletons;
+	}
+
+	@Override
+	public Set<Class<?>> getClasses() {
+		Set<Class<?>> classes = new HashSet<>();
+		classes.add(ServicioRESTService.class);
+		classes.add(TipoServicioRESTService.class);
+		classes.add(TasaInteresRESTService.class);
+		classes.add(ValorTasaInteresRESTService.class);
+		classes.add(ClienteRESTService.class);
+		return classes;
+	}
 }

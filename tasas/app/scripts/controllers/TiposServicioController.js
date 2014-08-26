@@ -9,6 +9,7 @@
  */
 angular.module('tasasApp')
     .controller('TiposServicioController', function ($scope, api) {
+
         $scope.myData = [{name: "Moroni", age: 50},
             {name: "Tiancum", age: 43},
             {name: "Jacob", age: 27},
@@ -18,6 +19,5 @@ angular.module('tasasApp')
 
 
         var tiposServicio = api.tiposServicio.get({id: 1});
-        console.log(tiposServicio);
 
     });
