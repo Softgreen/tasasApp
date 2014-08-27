@@ -20,7 +20,7 @@ angular
     ])
     .config(function ($routeProvider, tasasApiProvider) {
 
-        tasasApiProvider.setBaseUrl('http://localhost:8080/TasasApp/rest');
+        tasasApiProvider.setBaseUrl('http://localhost:8080/TasasREST/rest');
 
         $routeProvider
             .when('/', {

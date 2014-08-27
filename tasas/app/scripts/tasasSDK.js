@@ -24,7 +24,9 @@ var tiposServicio =  function(Restangular){
     };
     TipoServicio.prototype.getAll = function(){
         var result = Restangular.one(baseUrl).get();
-        console.log(result.data);
+        result.then(function(data){
+            console.log(result.data);
+        });
         return result.data;
     };
 
@@ -35,7 +37,7 @@ var tiposServicio =  function(Restangular){
 
 tasasApi.config(function($provide, RestangularProvider) {
 
-    RestangularProvider.setBaseUrl('http://localhost:8080/TasasApp/rest');
+    RestangularProvider.setBaseUrl('http://localhost:8080/TasasREST/rest');
 
     this.endpoints = {};
 
