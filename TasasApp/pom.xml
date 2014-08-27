@@ -160,8 +160,8 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		
+		</dependency>		
+
 		<!-- Needed for running tests (you may also use TestNG) -->
 		<dependency>
 			<groupId>junit</groupId>

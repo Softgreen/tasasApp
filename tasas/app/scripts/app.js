@@ -12,18 +12,15 @@ angular
     .module('tasasApp', [
         'ngAnimate',
         'ngCookies',
-        'ngResource',
         'ngRoute',
         'ngSanitize',
         'ngTouch',
         'ngGrid',
-        'core'
+        'tasasApi'
     ])
-    .config(function ($routeProvider, apiProvider) {
-        apiProvider.setBaseRoute('http://localhost:8080/TasasApp/rest/');
+    .config(function ($routeProvider, tasasApiProvider) {
 
-        apiProvider.endpoint('tiposServicio').
-            route('tiposServicio/:id');
+        tasasApiProvider.setBaseUrl('http://localhost:8080/TasasApp/rest');
 
         $routeProvider
             .when('/', {
