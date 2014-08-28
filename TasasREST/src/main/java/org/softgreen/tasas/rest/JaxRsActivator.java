@@ -41,7 +41,7 @@ import org.softgreen.tasas.rest.impl.ValorTasaInteresRESTService;
 @ApplicationPath("/rest")
 public class JaxRsActivator extends Application {
 
-	private Set<Object> singletons = new HashSet<>();
+	private Set<Object> singletons = new HashSet();
 
 	@Override
 	public Set<Object> getSingletons() {
@@ -53,7 +53,7 @@ public class JaxRsActivator extends Application {
 
 	@Override
 	public Set<Class<?>> getClasses() {
-		Set<Class<?>> classes = new HashSet<>();
+		Set<Class<?>> classes = new HashSet();
 		classes.add(ServicioRESTService.class);
 		classes.add(TipoServicioRESTService.class);
 		classes.add(TasaInteresRESTService.class);
