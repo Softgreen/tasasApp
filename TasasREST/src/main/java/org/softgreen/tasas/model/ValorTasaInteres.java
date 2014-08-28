@@ -3,6 +3,7 @@ package org.softgreen.tasas.model;
 // Generated 16/08/2014 01:49:33 PM by Hibernate Tools 4.0.0
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,9 +35,7 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Table(name = "VALOR_TASA_INTERES")
-@GenericGenerator(name = "ValorTasaInteresGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-		@Parameter(name = "prefer_sequence_per_entity", value = "true"),
-		@Parameter(name = "optimizer ", value = "pooled") })
+@GenericGenerator(name = "ValorTasaInteresGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = { @Parameter(name = "prefer_sequence_per_entity", value = "true"), @Parameter(name = "optimizer ", value = "pooled") })
 public class ValorTasaInteres implements java.io.Serializable {
 
 	/**
@@ -57,7 +56,7 @@ public class ValorTasaInteres implements java.io.Serializable {
 	private BigDecimal valor;
 	private boolean estado;
 
-	private Date version;
+	private Timestamp version;
 
 	public ValorTasaInteres() {
 	}
@@ -202,14 +201,13 @@ public class ValorTasaInteres implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	@Version
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@Version	
 	@Column(name = "OPTLOCK")
-	public Date getVersion() {
+	public Timestamp getVersion() {
 		return this.version;
 	}
 
-	public void setVersion(Date version) {
+	public void setVersion(Timestamp version) {
 		this.version = version;
 	}
 
@@ -217,10 +215,7 @@ public class ValorTasaInteres implements java.io.Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((idValorTasaInteres == null) ? 0 : idValorTasaInteres
-						.hashCode());
+		result = prime * result + ((idValorTasaInteres == null) ? 0 : idValorTasaInteres.hashCode());
 		return result;
 	}
 
