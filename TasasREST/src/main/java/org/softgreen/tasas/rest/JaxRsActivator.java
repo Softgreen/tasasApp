@@ -46,9 +46,7 @@ public class JaxRsActivator extends Application {
 	@Override
 	public Set<Object> getSingletons() {
 		CorsFilter filter = new CorsFilter();
-		filter.getAllowedOrigins().add("http://localhost:8080");
-		filter.getAllowedOrigins().add("http://localhost:9000");
-		filter.getAllowedOrigins().add("http://localhost:63342");
+		filter.getAllowedOrigins().add("http://localhost");
 		singletons.add(filter);
 		return singletons;
 	}
