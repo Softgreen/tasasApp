@@ -1,0 +1,22 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.8.2'
+        compile project(':cliente')
+        compile project(':moneda')
+        compile project(':tasa')
+        compile project(':ubigeo')        
+    }
+
+    version = '1.0'
+
+    jar {
+        manifest.attributes provider: 'my cool company'
+    }
+}
