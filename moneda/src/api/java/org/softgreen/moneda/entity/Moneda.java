@@ -1,4 +1,4 @@
-package org.softgreen.model;
+package org.softgreen.moneda.entity;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -29,6 +29,10 @@ public class Moneda {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Moneda(String codigo) {
+		this.codigo = codigo;
+	}
+	
 	@NotNull
 	@Size(min = 1, max = 5)
 	@NotBlank

@@ -1,4 +1,4 @@
-package org.softgreen.model;
+package org.softgreen.moneda.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

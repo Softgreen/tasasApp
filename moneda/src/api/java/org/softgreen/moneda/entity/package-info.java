@@ -11,7 +11,7 @@ parameters = {
 		@Parameter(name = "prefer_sequence_per_entity", value = "true"), 
 		@Parameter(name = "optimizer ", value = "pooled") 
 		})
-package org.softgreen.model;
+package org.softgreen.moneda.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
