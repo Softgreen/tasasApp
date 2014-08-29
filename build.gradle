@@ -7,11 +7,7 @@ subprojects {
     }
 
     dependencies {
-        testCompile 'junit:junit:4.8.2'
-        compile project(':cliente')
-        compile project(':moneda')
-        compile project(':tasa')
-        compile project(':ubigeo')        
+        testCompile 'junit:junit:4.8.2'       
     }
 
     version = '1.0'
