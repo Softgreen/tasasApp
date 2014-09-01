@@ -33,6 +33,9 @@ import org.hibernate.annotations.NaturalId;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TasaCambio {
 
+	public final static String base = "org.softgreen.ubigeo.entity.TasaCambio";
+	public final static String findByMonedaOrigenDestino = base + "findByMonedaOrigenDestino";
+
 	private Long id;
 	private Moneda monedaOrigen;
 	private Moneda monedaDestino;

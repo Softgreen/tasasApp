@@ -41,7 +41,7 @@ public class Pais {
 	private Timestamp version;
 
 	@NotNull
-	@Size(min = 2, max = 2)
+	@Size(min = 3, max = 3)
 	@NotBlank
 	@NotEmpty
 	@Id

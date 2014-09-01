@@ -1,5 +1,6 @@
 package org.softgreen.ubigeo.controller;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -7,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.softgreen.dao.CrudService;
+import org.softgreen.dao.DAO;
 import org.softgreen.ubigeo.entity.Departamento;
 import org.softgreen.ubigeo.entity.Distrito;
 import org.softgreen.ubigeo.entity.Pais;
@@ -16,23 +18,37 @@ import org.softgreen.ubigeo.entity.Provincia;
 public class UbigeoController {
 
 	@Inject
-	private CrudService crudService;
-
+	private DAO<String, Pais> paisDAO;
+	
+	@Inject
+	private DAO<String, Departamento> departamentoDAO;
+	
+	@Inject
+	private DAO<String, Provincia> provinciaDAO;
+	
+	@Inject
+	private DAO<String, Distrito> distritoDAO;
+	
+		
 	public TreeSet<Pais> getPaises() {
-		List<Pais> result = crudService.findWithNamedQuery(Pais.findAll);
+		Collection<Pais> result = paisDAO.findByNamedQuery(Pais.findAll);
 		return new TreeSet<Pais>(result);
 	}
 	
-	public get
-
-	public Departamento getDepartamento(String codigoDepartamento) {
-		crudService.findWithNamedQuery()
-		return null;
+	public Pais getPais(String codigo){
+		return paisDAO.find(codigo);
 	}
 
 	public TreeSet<Departamento> getDepartamentos() {
-		return null;
+		Collection<Departamento> result = departamentoDAO.findByNamedQuery(Departamento.findAll);
+		return new TreeSet<Departamento>(result);
 	}
+	
+	public Departamento getDepartamento(String codigoDepartamento) {
+		return departamentoDAO.find(codigoDepartamento);
+	}
+
+	
 
 	public TreeSet<Provincia> getProvincias(String codigoDepartamento) {
 		return null;
