@@ -23,7 +23,7 @@ public class Moneda {
 	private String codigo;
 	private String denominacion;
 	private String simbolo;
-	private Pais pais;
+	private Country pais;
 	private Set<Denominacion> denominaciones = new HashSet<Denominacion>();
 
 	private Timestamp version;
@@ -84,11 +84,11 @@ public class Moneda {
 
 	@XmlTransient
 	@OneToOne
-	public Pais getPais() {
+	public Country getPais() {
 		return pais;
 	}
 
-	public void setPais(Pais pais) {
+	public void setPais(Country pais) {
 		this.pais = pais;
 	}
 

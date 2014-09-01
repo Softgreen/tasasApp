@@ -34,7 +34,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.softgreen.dao.DAO;
-import org.softgreen.ubigeo.entity.Departamento;
+import org.softgreen.ubigeo.entity.SubDivision;
 
 /**
  * A minimalistic CRUD implementation. Usually provides the implementation of
@@ -45,40 +45,40 @@ import org.softgreen.ubigeo.entity.Departamento;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class DepartamentoBeanDAO implements DAO<String, Departamento> {
+public class DepartamentoBeanDAO implements DAO<String, SubDivision> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public Departamento create(Departamento t) {
+	public SubDivision create(SubDivision t) {
 		this.em.persist(t);
 		return t;
 	}
 
-	public void delete(Departamento t) {
+	public void delete(SubDivision t) {
 		t = this.em.merge(t);
 		this.em.remove(t);
 	}
 
-	public Departamento find(String id) {
-		return this.em.find(Departamento.class, id);
+	public SubDivision find(String id) {
+		return this.em.find(SubDivision.class, id);
 	}
 
-	public Departamento update(Departamento t) {
+	public SubDivision update(SubDivision t) {
 		return this.em.merge(t);
 	}
 
-	public List<Departamento> findAll() {
-		List<Departamento> list = null;
+	public List<SubDivision> findAll() {
+		List<SubDivision> list = null;
 		CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Departamento.class));
+		cq.select(cq.from(SubDivision.class));
 		list = this.em.createQuery(cq).getResultList();
 		return list;
 	}
 
-	public List<Departamento> findRange(int[] range) {
+	public List<SubDivision> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Departamento.class));
+		cq.select(cq.from(SubDivision.class));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		q.setMaxResults(range[1] - range[0]);
 		q.setFirstResult(range[0]);
@@ -87,7 +87,7 @@ public class DepartamentoBeanDAO implements DAO<String, Departamento> {
 
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<Departamento> rt = cq.from(Departamento.class);
+		javax.persistence.criteria.Root<SubDivision> rt = cq.from(SubDivision.class);
 		cq.select(this.em.getCriteriaBuilder().count(rt));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
@@ -107,19 +107,19 @@ public class DepartamentoBeanDAO implements DAO<String, Departamento> {
 		return ((Long) query.getSingleResult()).intValue();
 	}
 
-	public List<Departamento> findByNamedQuery(String namedQueryName) {
+	public List<SubDivision> findByNamedQuery(String namedQueryName) {
 		return this.em.createNamedQuery(namedQueryName).getResultList();
 	}
 
-	public List<Departamento> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+	public List<SubDivision> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
 		return findByNamedQuery(namedQueryName, parameters, 0);
 	}
 
-	public List<Departamento> findByNamedQuery(String queryName, int resultLimit) {
+	public List<SubDivision> findByNamedQuery(String queryName, int resultLimit) {
 		return this.em.createNamedQuery(queryName).setMaxResults(resultLimit).getResultList();
 	}
 
-	public List<Departamento> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+	public List<SubDivision> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		if (resultLimit > 0)
@@ -130,7 +130,7 @@ public class DepartamentoBeanDAO implements DAO<String, Departamento> {
 		return query.getResultList();
 	}
 
-	public List<Departamento> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
+	public List<SubDivision> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		for (Entry<String, Object> entry : rawParameters) {

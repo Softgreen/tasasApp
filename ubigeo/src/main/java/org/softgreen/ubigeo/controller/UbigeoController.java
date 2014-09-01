@@ -1,27 +1,15 @@
 package org.softgreen.ubigeo.controller;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.TreeSet;
-
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-
-import org.softgreen.dao.CrudService;
-import org.softgreen.dao.DAO;
-import org.softgreen.ubigeo.entity.Departamento;
-import org.softgreen.ubigeo.entity.Distrito;
-import org.softgreen.ubigeo.entity.Pais;
-import org.softgreen.ubigeo.entity.Provincia;
 
 @Stateless
 public class UbigeoController {
-
+/*
 	@Inject
-	private DAO<String, Pais> paisDAO;
+	private DAO<String, Country> paisDAO;
 	
 	@Inject
-	private DAO<String, Departamento> departamentoDAO;
+	private DAO<String, SubDivision> departamentoDAO;
 	
 	@Inject
 	private DAO<String, Provincia> provinciaDAO;
@@ -30,21 +18,21 @@ public class UbigeoController {
 	private DAO<String, Distrito> distritoDAO;
 	
 		
-	public TreeSet<Pais> getPaises() {
-		Collection<Pais> result = paisDAO.findByNamedQuery(Pais.findAll);
-		return new TreeSet<Pais>(result);
+	public TreeSet<Country> getPaises() {
+		Collection<Country> result = paisDAO.findByNamedQuery(Country.findAll);
+		return new TreeSet<Country>(result);
 	}
 	
-	public Pais getPais(String codigo){
+	public Country getPais(String codigo){
 		return paisDAO.find(codigo);
 	}
 
-	public TreeSet<Departamento> getDepartamentos() {
-		Collection<Departamento> result = departamentoDAO.findByNamedQuery(Departamento.findAll);
-		return new TreeSet<Departamento>(result);
+	public TreeSet<SubDivision> getDepartamentos() {
+		Collection<SubDivision> result = departamentoDAO.findByNamedQuery(SubDivision.findAll);
+		return new TreeSet<SubDivision>(result);
 	}
 	
-	public Departamento getDepartamento(String codigoDepartamento) {
+	public SubDivision getDepartamento(String codigoDepartamento) {
 		return departamentoDAO.find(codigoDepartamento);
 	}
 
@@ -65,5 +53,5 @@ public class UbigeoController {
 	public Distrito getDistrito(String codigoDepartamento, String codigoProvincia, String codigoDistrito) {
 		return null;
 	}
-
+*/
 }

@@ -34,7 +34,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.softgreen.dao.DAO;
-import org.softgreen.ubigeo.entity.Pais;
+import org.softgreen.ubigeo.entity.Country;
 
 /**
  * A minimalistic CRUD implementation. Usually provides the implementation of
@@ -45,40 +45,40 @@ import org.softgreen.ubigeo.entity.Pais;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class PaisBeanDAO implements DAO<String, Pais> {
+public class PaisBeanDAO implements DAO<String, Country> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public Pais create(Pais t) {
+	public Country create(Country t) {
 		this.em.persist(t);
 		return t;
 	}
 
-	public void delete(Pais t) {
+	public void delete(Country t) {
 		t = this.em.merge(t);
 		this.em.remove(t);
 	}
 
-	public Pais find(String id) {
-		return this.em.find(Pais.class, id);
+	public Country find(String id) {
+		return this.em.find(Country.class, id);
 	}
 
-	public Pais update(Pais t) {
+	public Country update(Country t) {
 		return this.em.merge(t);
 	}
 
-	public List<Pais> findAll() {
-		List<Pais> list = null;
+	public List<Country> findAll() {
+		List<Country> list = null;
 		CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Pais.class));
+		cq.select(cq.from(Country.class));
 		list = this.em.createQuery(cq).getResultList();
 		return list;
 	}
 
-	public List<Pais> findRange(int[] range) {
+	public List<Country> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Pais.class));
+		cq.select(cq.from(Country.class));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		q.setMaxResults(range[1] - range[0]);
 		q.setFirstResult(range[0]);
@@ -87,7 +87,7 @@ public class PaisBeanDAO implements DAO<String, Pais> {
 
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<Pais> rt = cq.from(Pais.class);
+		javax.persistence.criteria.Root<Country> rt = cq.from(Country.class);
 		cq.select(this.em.getCriteriaBuilder().count(rt));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
@@ -107,19 +107,19 @@ public class PaisBeanDAO implements DAO<String, Pais> {
 		return ((Long) query.getSingleResult()).intValue();
 	}
 
-	public List<Pais> findByNamedQuery(String namedQueryName) {
+	public List<Country> findByNamedQuery(String namedQueryName) {
 		return this.em.createNamedQuery(namedQueryName).getResultList();
 	}
 
-	public List<Pais> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+	public List<Country> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
 		return findByNamedQuery(namedQueryName, parameters, 0);
 	}
 
-	public List<Pais> findByNamedQuery(String queryName, int resultLimit) {
+	public List<Country> findByNamedQuery(String queryName, int resultLimit) {
 		return this.em.createNamedQuery(queryName).setMaxResults(resultLimit).getResultList();
 	}
 
-	public List<Pais> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+	public List<Country> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		if (resultLimit > 0)
@@ -130,7 +130,7 @@ public class PaisBeanDAO implements DAO<String, Pais> {
 		return query.getResultList();
 	}
 
-	public List<Pais> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
+	public List<Country> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		for (Entry<String, Object> entry : rawParameters) {

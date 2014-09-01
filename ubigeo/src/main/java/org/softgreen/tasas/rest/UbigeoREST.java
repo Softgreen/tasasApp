@@ -11,22 +11,20 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.softgreen.ubigeo.controller.UbigeoController;
-import org.softgreen.ubigeo.entity.Departamento;
-import org.softgreen.ubigeo.entity.Distrito;
-import org.softgreen.ubigeo.entity.Provincia;
+import org.softgreen.ubigeo.entity.SubDivision;
 
 @Path("/ubigeo")
 public class UbigeoREST {
 
 	@Inject
 	private UbigeoController ubigeoController;
-
+/*
 	@GET
 	@Path("/departamentos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDepartamentos() {
 		Response response;
-		TreeSet<Departamento> list = ubigeoController.getDepartamentos();
+		TreeSet<SubDivision> list = ubigeoController.getDepartamentos();
 
 		Jsend jsend = Jsend.getSuccessJSend();
 		jsend.setData(list);
@@ -62,5 +60,5 @@ public class UbigeoREST {
 		response = Response.status(Response.Status.OK).entity(jsend).build();
 		return response;
 	}
-
+*/
 }
