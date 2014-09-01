@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
@@ -37,7 +38,7 @@ public class Moneda {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 5)
+	@Size(min = 1, max = 3)
 	@NotBlank
 	@NotEmpty
 	@Id
@@ -73,7 +74,8 @@ public class Moneda {
 		this.simbolo = simbolo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "moneda")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn
 	public Set<Denominacion> getDenominaciones() {
 		return denominaciones;
 	}

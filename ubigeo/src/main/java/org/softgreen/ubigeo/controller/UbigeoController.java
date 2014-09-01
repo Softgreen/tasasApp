@@ -1,57 +1,89 @@
 package org.softgreen.ubigeo.controller;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeSet;
+
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+
+import org.softgreen.dao.DAO;
+import org.softgreen.dao.QueryParameter;
+import org.softgreen.ubigeo.entity.Country;
+import org.softgreen.ubigeo.entity.SubDivision;
 
 @Stateless
 public class UbigeoController {
-/*
+
 	@Inject
-	private DAO<String, Country> paisDAO;
+	private DAO<Integer, Country> countryDAO;
 	
 	@Inject
-	private DAO<String, SubDivision> departamentoDAO;
-	
-	@Inject
-	private DAO<String, Provincia> provinciaDAO;
-	
-	@Inject
-	private DAO<String, Distrito> distritoDAO;
-	
+	private DAO<String, SubDivision> subDivisionDAO;
 		
-	public TreeSet<Country> getPaises() {
-		Collection<Country> result = paisDAO.findByNamedQuery(Country.findAll);
+	public TreeSet<Country> getCountries() {
+		Collection<Country> result = countryDAO.findByNamedQuery(Country.findAll);
 		return new TreeSet<Country>(result);
 	}
 	
-	public Country getPais(String codigo){
-		return paisDAO.find(codigo);
+	public Country getCountryByAlpha2Code(String code){
+		QueryParameter queryParameter = QueryParameter.with("code", code);
+		List<Country> list = countryDAO.findByNamedQuery(Country.findByAlpha2Code, queryParameter.parameters());
+		if(list.size() <= 1){
+			Country result = null;
+			for (Country country : list) {
+				result = country;
+			}
+			return result;
+		} else {
+			return null;
+		}		
+	}
+	
+	public Country getCountryByAlpha3Code(String code){
+		QueryParameter queryParameter = QueryParameter.with("code", code);
+		List<Country> list = countryDAO.findByNamedQuery(Country.findByAlpha3Code, queryParameter.parameters());
+		if(list.size() <= 1){
+			Country result = null;
+			for (Country country : list) {
+				result = country;
+			}
+			return result;
+		} else {
+			return null;
+		}	
+	}
+	
+	public Country getCountryByNumericCode(String code){
+		QueryParameter queryParameter = QueryParameter.with("code", code);
+		List<Country> list = countryDAO.findByNamedQuery(Country.findByNumericCode, queryParameter.parameters());
+		if(list.size() <= 1){
+			Country result = null;
+			for (Country country : list) {
+				result = country;
+			}
+			return result;
+		} else {
+			return null;
+		}	
 	}
 
-	public TreeSet<SubDivision> getDepartamentos() {
-		Collection<SubDivision> result = departamentoDAO.findByNamedQuery(SubDivision.findAll);
+	public TreeSet<SubDivision> getSubDivisionsByAlpha2Code(String countryCode, String subDivisionCode) {
+		QueryParameter queryParameter = QueryParameter.with("countryCode", countryCode).and("subDivisionCode", subDivisionCode);
+		Collection<SubDivision> result = subDivisionDAO.findByNamedQuery(SubDivision.findAllByAlpha2Code, queryParameter.parameters());
 		return new TreeSet<SubDivision>(result);
 	}
 	
-	public SubDivision getDepartamento(String codigoDepartamento) {
-		return departamentoDAO.find(codigoDepartamento);
+	public TreeSet<SubDivision> getSubDivisionsByAlpha3Code(String countryCode, String subDivisionCode) {
+		QueryParameter queryParameter = QueryParameter.with("countryCode", countryCode).and("subDivisionCode", subDivisionCode);
+		Collection<SubDivision> result = subDivisionDAO.findByNamedQuery(SubDivision.findAllByAlpha3Code, queryParameter.parameters());
+		return new TreeSet<SubDivision>(result);
 	}
-
 	
-
-	public TreeSet<Provincia> getProvincias(String codigoDepartamento) {
-		return null;
+	public TreeSet<SubDivision> getSubDivisionsByNumericCode(String countryCode, String subDivisionCode) {
+		QueryParameter queryParameter = QueryParameter.with("countryCode", countryCode).and("subDivisionCode", subDivisionCode);
+		Collection<SubDivision> result = subDivisionDAO.findByNamedQuery(SubDivision.findAllByNumericCode, queryParameter.parameters());
+		return new TreeSet<SubDivision>(result);
 	}
 
-	public Provincia getProvincia(String codigoDepartamento, String codigoProvincia) {
-		return null;
-	}
-
-	public TreeSet<Distrito> getDistritos(String codigoDepartamento, String codigoProvincia) {
-		return null;
-	}
-
-	public Distrito getDistrito(String codigoDepartamento, String codigoProvincia, String codigoDistrito) {
-		return null;
-	}
-*/
 }

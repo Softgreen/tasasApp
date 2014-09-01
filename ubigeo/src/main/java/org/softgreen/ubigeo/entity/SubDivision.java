@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,6 +31,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = SubDivision.findAll, query = "Select s from SubDivision s")
+@NamedQueries(value = { 
+		@NamedQuery(name = SubDivision.findAllByAlpha2Code, query = "Select s from SubDivision s INNER JOIN s.subDivisionCategory sc INNER JOIN sc.country c WHERE c.alpha2Code = :code AND s.parent =:code"), 
+		@NamedQuery(name = SubDivision.findAllByAlpha3Code, query = "Select s from SubDivision s INNER JOIN s.subDivisionCategory sc INNER JOIN sc.country c WHERE c.alpha3Code = :code AND s.parent =:code"),
+		@NamedQuery(name = SubDivision.findAllByNumericCode, query = "Select s from SubDivision s INNER JOIN s.subDivisionCategory sc INNER JOIN sc.country c WHERE c.numericCode = :code AND s.parent =:code") })
 public class SubDivision implements java.io.Serializable {
 
 	/**
@@ -39,6 +44,9 @@ public class SubDivision implements java.io.Serializable {
 
 	public final static String base = "org.softgreen.ubigeo.entity.Departamento";
 	public final static String findAll = base + "findAll";
+	public final static String findAllByAlpha2Code = base + "findAllByAlpha2Code";
+	public final static String findAllByAlpha3Code = base + "findAllByAlpha3Code";
+	public final static String findAllByNumericCode = base + "findAllByNumericCode";
 
 	private String code;
 	private String name;
@@ -86,9 +94,8 @@ public class SubDivision implements java.io.Serializable {
 		this.subDivisionCategory = subDivisionCategory;
 	}
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
+	@JoinColumn(nullable = true, foreignKey = @ForeignKey)
 	public SubDivision getParent() {
 		return parent;
 	}

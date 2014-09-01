@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +22,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,6 +33,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = Country.findAll, query = "Select p from Country p")
+@NamedQueries(value={
+		@NamedQuery(name = Country.findByAlpha2Code, query = "Select p from Country p WHERE p.alpha2Code = :code"),
+		@NamedQuery(name = Country.findByAlpha3Code, query = "Select p from Country p WHERE p.alpha3Code = :code"),
+		@NamedQuery(name = Country.findByNumericCode, query = "Select p from Country p WHERE p.numericCode = :code")
+		})
 public class Country implements Serializable {
 
 	/**
@@ -40,6 +47,9 @@ public class Country implements Serializable {
 
 	public final static String base = "org.softgreen.ubigeo.entity.Pais";
 	public final static String findAll = base + "findAll";
+	public final static String findByAlpha2Code = base + "findByAlpha2Code";
+	public final static String findByAlpha3Code = base + "findByAlpha3Code";
+	public final static String findByNumericCode = base + "findByNumericCode";
 
 	private Integer id;
 
@@ -60,6 +70,7 @@ public class Country implements Serializable {
 	private Timestamp version;
 
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
 	public Integer getId() {
 		return id;
 	}
@@ -205,6 +216,7 @@ public class Country implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn
 	public Set<SubDivisionCategory> getSubDivisionCategories() {
 		return subDivisionCategories;
 	}

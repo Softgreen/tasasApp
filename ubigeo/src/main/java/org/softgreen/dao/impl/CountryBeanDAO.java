@@ -45,7 +45,7 @@ import org.softgreen.ubigeo.entity.Country;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class PaisBeanDAO implements DAO<String, Country> {
+public class CountryBeanDAO implements DAO<Integer, Country> {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -60,7 +60,7 @@ public class PaisBeanDAO implements DAO<String, Country> {
 		this.em.remove(t);
 	}
 
-	public Country find(String id) {
+	public Country find(Integer id) {
 		return this.em.find(Country.class, id);
 	}
 

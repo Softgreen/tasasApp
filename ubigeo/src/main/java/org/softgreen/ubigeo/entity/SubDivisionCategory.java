@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,6 +41,7 @@ public class SubDivisionCategory implements Serializable {
 	private Country country;
 
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
 	public Integer getId() {
 		return id;
 	}

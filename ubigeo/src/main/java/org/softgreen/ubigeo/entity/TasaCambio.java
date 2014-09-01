@@ -97,8 +97,8 @@ public class TasaCambio {
 	@Min(value = 0)
 	@Max(value = 100)
 	@DecimalMin(value = "0")
-	@DecimalMax(value = "100")
-	@Digits(integer = 3, fraction = 2)
+	@DecimalMax(value = "99")
+	@Digits(integer = 2, fraction = 3)
 	public BigDecimal getValor() {
 		return valor;
 	}

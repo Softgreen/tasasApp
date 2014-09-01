@@ -31,7 +31,7 @@ import org.hibernate.annotations.NaturalId;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Denominacion {
 
-	private Long id;
+	private Integer id;
 	private Moneda moneda;
 	private BigDecimal valor;
 
@@ -43,11 +43,11 @@ public class Denominacion {
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
