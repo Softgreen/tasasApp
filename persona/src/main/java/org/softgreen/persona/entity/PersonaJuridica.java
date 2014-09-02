@@ -1,15 +1,19 @@
 package org.softgreen.persona.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,6 +24,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -41,12 +46,14 @@ public class PersonaJuridica extends Persona {
 	private boolean finLucro;
 
 	private PersonaNatural representanteLegal;
+	private Set<Accionista> accionistas = new HashSet<Accionista>();
 
 	public PersonaJuridica() {
 		super();
 	}
 
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
 	public Long getId() {
 		return id;
 	}
@@ -130,6 +137,16 @@ public class PersonaJuridica extends Persona {
 
 	public void setRepresentanteLegal(PersonaNatural representanteLegal) {
 		this.representanteLegal = representanteLegal;
+	}
+
+	@XmlTransient
+	@OneToMany(mappedBy = "personaJuridica", fetch = FetchType.LAZY)
+	public Set<Accionista> getAccionistas() {
+		return accionistas;
+	}
+
+	public void setAccionistas(Set<Accionista> accionistas) {
+		this.accionistas = accionistas;
 	}
 
 }

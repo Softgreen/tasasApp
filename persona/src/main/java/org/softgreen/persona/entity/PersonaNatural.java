@@ -1,12 +1,17 @@
 package org.softgreen.persona.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,10 +21,12 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+import org.softgreen.entity.type.EstadoCivil;
 import org.softgreen.entity.type.Sexo;
 
 @Entity
@@ -39,11 +46,14 @@ public class PersonaNatural extends Persona {
 	private String urlFoto;
 	private String urlFirma;
 
+	private Set<Accionista> accionistas = new HashSet<Accionista>();
+
 	public PersonaNatural() {
 		super();
 	}
 
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
 	public Long getId() {
 		return id;
 	}
@@ -150,6 +160,16 @@ public class PersonaNatural extends Persona {
 
 	public void setUrlFirma(String urlFirma) {
 		this.urlFirma = urlFirma;
+	}
+
+	@XmlTransient
+	@OneToMany(mappedBy = "personaNatural", fetch = FetchType.LAZY)
+	public Set<Accionista> getAccionistas() {
+		return accionistas;
+	}
+
+	public void setAccionistas(Set<Accionista> accionistas) {
+		this.accionistas = accionistas;
 	}
 
 }

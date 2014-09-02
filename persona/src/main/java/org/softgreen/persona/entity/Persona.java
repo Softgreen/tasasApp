@@ -121,4 +121,35 @@ public abstract class Persona {
 		this.email = email;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
+		result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Persona))
+			return false;
+		Persona other = (Persona) obj;
+		if (numeroDocumento == null) {
+			if (other.numeroDocumento != null)
+				return false;
+		} else if (!numeroDocumento.equals(other.numeroDocumento))
+			return false;
+		if (tipoDocumento == null) {
+			if (other.tipoDocumento != null)
+				return false;
+		} else if (!tipoDocumento.equals(other.tipoDocumento))
+			return false;
+		return true;
+	}
+
 }
