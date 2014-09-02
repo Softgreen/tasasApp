@@ -1,27 +1,64 @@
 package org.softgreen.persona.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.softgreen.entity.type.TipoEmpresa;
 
+@Entity
+@Table(indexes = { @Index(columnList = "id") })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class PersonaJuridica extends Persona {
 
+	private Long id;
 	private String razonSocial;
 	private String nombreComercial;
 	private Date fechaConstitucion;
 	private String actividadPrincipal;
 	private TipoEmpresa tipoEmpresa;
-	private Integer finLucro;
+	private boolean finLucro;
 
 	private PersonaNatural representanteLegal;
-	private Set<PersonaNatural> accionistas = new HashSet<PersonaNatural>(0);
 
 	public PersonaJuridica() {
 		super();
 	}
 
+	@Id
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@NotNull
+	@Size(min = 1, max = 70)
+	@NotEmpty
+	@NotBlank
 	public String getRazonSocial() {
 		return razonSocial;
 	}
@@ -30,6 +67,8 @@ public class PersonaJuridica extends Persona {
 		this.razonSocial = razonSocial;
 	}
 
+	@NotNull
+	@Size(min = 0, max = 50)
 	public String getNombreComercial() {
 		return nombreComercial;
 	}
@@ -38,6 +77,9 @@ public class PersonaJuridica extends Persona {
 		this.nombreComercial = nombreComercial;
 	}
 
+	@NotNull
+	@Past
+	@Temporal(TemporalType.DATE)
 	public Date getFechaConstitucion() {
 		return fechaConstitucion;
 	}
@@ -46,6 +88,8 @@ public class PersonaJuridica extends Persona {
 		this.fechaConstitucion = fechaConstitucion;
 	}
 
+	@NotNull
+	@Size(min = 0, max = 70)
 	public String getActividadPrincipal() {
 		return actividadPrincipal;
 	}
@@ -54,6 +98,11 @@ public class PersonaJuridica extends Persona {
 		this.actividadPrincipal = actividadPrincipal;
 	}
 
+	@NotNull
+	@Size(min = 1, max = 50)
+	@NotEmpty
+	@NotBlank
+	@Enumerated(EnumType.STRING)
 	public TipoEmpresa getTipoEmpresa() {
 		return tipoEmpresa;
 	}
@@ -62,14 +111,19 @@ public class PersonaJuridica extends Persona {
 		this.tipoEmpresa = tipoEmpresa;
 	}
 
-	public Integer getFinLucro() {
+	@NotNull
+	@Type(type = "org.hibernate.type.TrueFalseType")
+	public boolean isFinLucro() {
 		return finLucro;
 	}
 
-	public void setFinLucro(Integer finLucro) {
+	public void setFinLucro(boolean finLucro) {
 		this.finLucro = finLucro;
 	}
 
+	@NotNull
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey = @ForeignKey)
 	public PersonaNatural getRepresentanteLegal() {
 		return representanteLegal;
 	}
@@ -78,11 +132,4 @@ public class PersonaJuridica extends Persona {
 		this.representanteLegal = representanteLegal;
 	}
 
-	public Set<PersonaNatural> getAccionistas() {
-		return accionistas;
-	}
-
-	public void setAccionistas(Set<PersonaNatural> accionistas) {
-		this.accionistas = accionistas;
-	}
 }
