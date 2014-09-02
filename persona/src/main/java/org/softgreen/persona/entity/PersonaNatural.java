@@ -6,6 +6,7 @@ import org.softgreen.entity.type.Sexo;
 
 public class PersonaNatural extends Persona {
 
+	private String nacionalidad;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String nombres;
