@@ -1,5 +1,8 @@
 package org.softgreen.persona.entity;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Persona {
 
 	private String tipoDocumento;
