@@ -34,7 +34,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.softgreen.dao.DAO;
-import org.softgreen.ubigeo.entity.TasaCambio;
+import org.softgreen.ubigeo.entity.ExchangeRate;
 
 /**
  * A minimalistic CRUD implementation. Usually provides the implementation of
@@ -45,40 +45,40 @@ import org.softgreen.ubigeo.entity.TasaCambio;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TasaCambioBeanDAO implements DAO<Long, TasaCambio> {
+public class TasaCambioBeanDAO implements DAO<Long, ExchangeRate> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public TasaCambio create(TasaCambio t) {
+	public ExchangeRate create(ExchangeRate t) {
 		this.em.persist(t);
 		return t;
 	}
 
-	public void delete(TasaCambio t) {
+	public void delete(ExchangeRate t) {
 		t = this.em.merge(t);
 		this.em.remove(t);
 	}
 
-	public TasaCambio find(Long id) {
-		return this.em.find(TasaCambio.class, id);
+	public ExchangeRate find(Long id) {
+		return this.em.find(ExchangeRate.class, id);
 	}
 
-	public TasaCambio update(TasaCambio t) {
+	public ExchangeRate update(ExchangeRate t) {
 		return this.em.merge(t);
 	}
 
-	public List<TasaCambio> findAll() {
-		List<TasaCambio> list = null;
+	public List<ExchangeRate> findAll() {
+		List<ExchangeRate> list = null;
 		CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(TasaCambio.class));
+		cq.select(cq.from(ExchangeRate.class));
 		list = this.em.createQuery(cq).getResultList();
 		return list;
 	}
 
-	public List<TasaCambio> findRange(int[] range) {
+	public List<ExchangeRate> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(TasaCambio.class));
+		cq.select(cq.from(ExchangeRate.class));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		q.setMaxResults(range[1] - range[0]);
 		q.setFirstResult(range[0]);
@@ -87,7 +87,7 @@ public class TasaCambioBeanDAO implements DAO<Long, TasaCambio> {
 
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<TasaCambio> rt = cq.from(TasaCambio.class);
+		javax.persistence.criteria.Root<ExchangeRate> rt = cq.from(ExchangeRate.class);
 		cq.select(this.em.getCriteriaBuilder().count(rt));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
@@ -107,19 +107,19 @@ public class TasaCambioBeanDAO implements DAO<Long, TasaCambio> {
 		return ((Long) query.getSingleResult()).intValue();
 	}
 
-	public List<TasaCambio> findByNamedQuery(String namedQueryName) {
+	public List<ExchangeRate> findByNamedQuery(String namedQueryName) {
 		return this.em.createNamedQuery(namedQueryName).getResultList();
 	}
 
-	public List<TasaCambio> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+	public List<ExchangeRate> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
 		return findByNamedQuery(namedQueryName, parameters, 0);
 	}
 
-	public List<TasaCambio> findByNamedQuery(String queryName, int resultLimit) {
+	public List<ExchangeRate> findByNamedQuery(String queryName, int resultLimit) {
 		return this.em.createNamedQuery(queryName).setMaxResults(resultLimit).getResultList();
 	}
 
-	public List<TasaCambio> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+	public List<ExchangeRate> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		if (resultLimit > 0)
@@ -130,7 +130,7 @@ public class TasaCambioBeanDAO implements DAO<Long, TasaCambio> {
 		return query.getResultList();
 	}
 
-	public List<TasaCambio> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
+	public List<ExchangeRate> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		for (Entry<String, Object> entry : rawParameters) {

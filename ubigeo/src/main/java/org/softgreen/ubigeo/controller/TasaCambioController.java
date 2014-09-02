@@ -10,21 +10,21 @@ import javax.inject.Inject;
 
 import org.softgreen.dao.DAO;
 import org.softgreen.dao.QueryParameter;
-import org.softgreen.ubigeo.entity.Moneda;
-import org.softgreen.ubigeo.entity.TasaCambio;
+import org.softgreen.ubigeo.entity.Currency;
+import org.softgreen.ubigeo.entity.ExchangeRate;
 
 @Stateless
 public class TasaCambioController {
 
 	@Inject
-	private DAO<String, Moneda> monedaDAO;
+	private DAO<String, Currency> monedaDAO;
 
 	@Inject
-	private DAO<Long, TasaCambio> tasaCambioDAO;
+	private DAO<Long, ExchangeRate> tasaCambioDAO;
 
 	public BigDecimal getTasaCambio(String codigoMonedaOrigen, String codigoMonedaDestino) {
-		Moneda monedaOrigen = monedaDAO.find(codigoMonedaOrigen);
-		Moneda monedaDestino = monedaDAO.find(codigoMonedaDestino);
+		Currency monedaOrigen = monedaDAO.find(codigoMonedaOrigen);
+		Currency monedaDestino = monedaDAO.find(codigoMonedaDestino);
 		if (monedaOrigen == null)
 			return null;
 		if (monedaDestino == null)
@@ -34,11 +34,11 @@ public class TasaCambioController {
 		Date fecha = calendar.getTime();
 
 		QueryParameter queryParameter = QueryParameter.with("codigoMonedaOrigen", codigoMonedaOrigen).and("codigoMonedaDestino", codigoMonedaDestino).and("fecha", fecha);
-		List<TasaCambio> list = tasaCambioDAO.findByNamedQuery(TasaCambio.findByMonedaOrigenDestino, queryParameter.parameters());
+		List<ExchangeRate> list = tasaCambioDAO.findByNamedQuery(ExchangeRate.findByCurrencyOriginDestiny, queryParameter.parameters());
 
 		if (list.size() <= 1) {
 			BigDecimal result = null;
-			for (TasaCambio tasaCambio : list) {
+			for (ExchangeRate tasaCambio : list) {
 				result = tasaCambio.getValor();
 			}
 			return result;
@@ -49,8 +49,8 @@ public class TasaCambioController {
 	}
 
 	public BigDecimal getTasaCambio(String codigoMonedaOrigen, String codigoMonedaDestino, Date fecha) {
-		Moneda monedaOrigen = monedaDAO.find(codigoMonedaOrigen);
-		Moneda monedaDestino = monedaDAO.find(codigoMonedaDestino);
+		Currency monedaOrigen = monedaDAO.find(codigoMonedaOrigen);
+		Currency monedaDestino = monedaDAO.find(codigoMonedaDestino);
 		if (monedaOrigen == null)
 			return null;
 		if (monedaDestino == null)
@@ -59,11 +59,11 @@ public class TasaCambioController {
 			return null;
 
 		QueryParameter queryParameter = QueryParameter.with("codigoMonedaOrigen", codigoMonedaOrigen).and("codigoMonedaDestino", codigoMonedaDestino).and("fecha", fecha);
-		List<TasaCambio> list = tasaCambioDAO.findByNamedQuery(TasaCambio.findByMonedaOrigenDestino, queryParameter.parameters());
+		List<ExchangeRate> list = tasaCambioDAO.findByNamedQuery(ExchangeRate.findByCurrencyOriginDestiny, queryParameter.parameters());
 
 		if (list.size() <= 1) {
 			BigDecimal result = null;
-			for (TasaCambio tasaCambio : list) {
+			for (ExchangeRate tasaCambio : list) {
 				result = tasaCambio.getValor();
 			}
 			return result;

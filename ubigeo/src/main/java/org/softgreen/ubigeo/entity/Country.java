@@ -33,11 +33,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = Country.findAll, query = "Select p from Country p")
-@NamedQueries(value={
-		@NamedQuery(name = Country.findByAlpha2Code, query = "Select p from Country p WHERE p.alpha2Code = :code"),
-		@NamedQuery(name = Country.findByAlpha3Code, query = "Select p from Country p WHERE p.alpha3Code = :code"),
-		@NamedQuery(name = Country.findByNumericCode, query = "Select p from Country p WHERE p.numericCode = :code")
-		})
+@NamedQueries(value = { @NamedQuery(name = Country.findByAlpha2Code, query = "Select p from Country p WHERE p.alpha2Code = :code"), @NamedQuery(name = Country.findByAlpha3Code, query = "Select p from Country p WHERE p.alpha3Code = :code"), @NamedQuery(name = Country.findByNumericCode, query = "Select p from Country p WHERE p.numericCode = :code") })
 public class Country implements Serializable {
 
 	/**
@@ -64,7 +60,7 @@ public class Country implements Serializable {
 	private String territoryName;
 	private String status;
 
-	private Moneda moneda;
+	private Currency currency;
 	private Set<SubDivisionCategory> subDivisionCategories = new HashSet<SubDivisionCategory>();
 
 	private Timestamp version;
@@ -207,13 +203,13 @@ public class Country implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public Moneda getMoneda() {
-		return moneda;
+	public Currency getCurrency() {
+		return currency;
 	}
 
-	public void setMoneda(Moneda moneda) {
-		this.moneda = moneda;
-	}
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}	
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn

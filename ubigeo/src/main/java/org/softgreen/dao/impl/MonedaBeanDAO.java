@@ -34,7 +34,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.softgreen.dao.DAO;
-import org.softgreen.ubigeo.entity.Moneda;
+import org.softgreen.ubigeo.entity.Currency;
 
 /**
  * A minimalistic CRUD implementation. Usually provides the implementation of
@@ -45,40 +45,40 @@ import org.softgreen.ubigeo.entity.Moneda;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class MonedaBeanDAO implements DAO<String, Moneda> {
+public class MonedaBeanDAO implements DAO<String, Currency> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public Moneda create(Moneda t) {
+	public Currency create(Currency t) {
 		this.em.persist(t);
 		return t;
 	}
 
-	public void delete(Moneda t) {
+	public void delete(Currency t) {
 		t = this.em.merge(t);
 		this.em.remove(t);
 	}
 
-	public Moneda find(String id) {
-		return this.em.find(Moneda.class, id);
+	public Currency find(String id) {
+		return this.em.find(Currency.class, id);
 	}
 
-	public Moneda update(Moneda t) {
+	public Currency update(Currency t) {
 		return this.em.merge(t);
 	}
 
-	public List<Moneda> findAll() {
-		List<Moneda> list = null;
+	public List<Currency> findAll() {
+		List<Currency> list = null;
 		CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Moneda.class));
+		cq.select(cq.from(Currency.class));
 		list = this.em.createQuery(cq).getResultList();
 		return list;
 	}
 
-	public List<Moneda> findRange(int[] range) {
+	public List<Currency> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Moneda.class));
+		cq.select(cq.from(Currency.class));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		q.setMaxResults(range[1] - range[0]);
 		q.setFirstResult(range[0]);
@@ -87,7 +87,7 @@ public class MonedaBeanDAO implements DAO<String, Moneda> {
 
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<Moneda> rt = cq.from(Moneda.class);
+		javax.persistence.criteria.Root<Currency> rt = cq.from(Currency.class);
 		cq.select(this.em.getCriteriaBuilder().count(rt));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
@@ -107,19 +107,19 @@ public class MonedaBeanDAO implements DAO<String, Moneda> {
 		return ((Long) query.getSingleResult()).intValue();
 	}
 
-	public List<Moneda> findByNamedQuery(String namedQueryName) {
+	public List<Currency> findByNamedQuery(String namedQueryName) {
 		return this.em.createNamedQuery(namedQueryName).getResultList();
 	}
 
-	public List<Moneda> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+	public List<Currency> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
 		return findByNamedQuery(namedQueryName, parameters, 0);
 	}
 
-	public List<Moneda> findByNamedQuery(String queryName, int resultLimit) {
+	public List<Currency> findByNamedQuery(String queryName, int resultLimit) {
 		return this.em.createNamedQuery(queryName).setMaxResults(resultLimit).getResultList();
 	}
 
-	public List<Moneda> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+	public List<Currency> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		if (resultLimit > 0)
@@ -130,7 +130,7 @@ public class MonedaBeanDAO implements DAO<String, Moneda> {
 		return query.getResultList();
 	}
 
-	public List<Moneda> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
+	public List<Currency> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		for (Entry<String, Object> entry : rawParameters) {
