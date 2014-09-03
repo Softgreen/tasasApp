@@ -3,15 +3,10 @@ package org.softgreen.organizacion.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -22,9 +17,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(indexes = { @Index(columnList = "id") })
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("beneficiario")
 public class DetalleTransaccion extends Detalle implements Serializable {
 
 	/**

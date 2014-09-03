@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Entity
 @Table(name = "TRANSACCION_CAJA_CAJA", schema = "BDSISTEMAFINANCIERO")
-public class TransaccionCajaCaja implements java.io.Serializable {
+public class TransaccionCajaCaja extends TransaccionInterna implements java.io.Serializable {
 
 	/**
 	 * 
