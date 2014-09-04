@@ -1,5 +1,6 @@
 package org.softgreen.organizacion.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,6 +38,8 @@ public abstract class Historial {
 	protected boolean estado;
 
 	private Set<DetalleHistorial> detalle = new HashSet<DetalleHistorial>();
+
+	private Timestamp version;
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
@@ -103,6 +107,16 @@ public abstract class Historial {
 
 	public void setDetalle(Set<DetalleHistorial> detalle) {
 		this.detalle = detalle;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override

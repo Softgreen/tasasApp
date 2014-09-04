@@ -1,5 +1,6 @@
 package org.softgreen.organizacion.entity;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,8 +42,10 @@ public class Boveda {
 
 	private Agencia agencia;
 
-	Set<HistorialBoveda> historiales = new HashSet<HistorialBoveda>();
-	Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
+	private Set<HistorialBoveda> historiales = new HashSet<HistorialBoveda>();
+	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
+
+	private Timestamp version;
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
@@ -138,6 +142,16 @@ public class Boveda {
 
 	public void setBovedaCajas(Set<BovedaCaja> bovedaCajas) {
 		this.bovedaCajas = bovedaCajas;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override

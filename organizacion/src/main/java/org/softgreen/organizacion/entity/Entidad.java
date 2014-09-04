@@ -1,6 +1,6 @@
 package org.softgreen.organizacion.entity;
 
-import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,6 +35,8 @@ public class Entidad {
 	private String abreviatura;
 	private boolean estado;
 	private Set<TransaccionBovedaEntidad> transaccionesBovedaEntidad = new HashSet<TransaccionBovedaEntidad>(0);
+
+	private Timestamp version;
 
 	public Entidad() {
 		// TODO Auto-generated constructor stub
@@ -92,6 +95,16 @@ public class Entidad {
 
 	public void setTransaccionesBovedaEntidad(Set<TransaccionBovedaEntidad> transaccionesBovedaEntidad) {
 		this.transaccionesBovedaEntidad = transaccionesBovedaEntidad;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override

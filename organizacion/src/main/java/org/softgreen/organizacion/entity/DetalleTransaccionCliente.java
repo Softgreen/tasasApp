@@ -2,6 +2,7 @@ package org.softgreen.organizacion.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(indexes = { @Index(columnList = "id") })
@@ -38,6 +41,8 @@ public class DetalleTransaccionCliente implements Serializable {
 	private int cantidad;
 
 	private TransaccionCliente transaccionCliente;
+
+	private Timestamp version;
 
 	public DetalleTransaccionCliente() {
 		// TODO Auto-generated constructor stub
@@ -88,6 +93,16 @@ public class DetalleTransaccionCliente implements Serializable {
 
 	public void setTransaccionCliente(TransaccionCliente transaccionCliente) {
 		this.transaccionCliente = transaccionCliente;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override

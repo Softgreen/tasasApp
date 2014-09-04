@@ -1,5 +1,6 @@
 package org.softgreen.organizacion.entity;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -43,6 +45,8 @@ public class Agencia {
 	private Set<Boveda> bovedas = new HashSet<Boveda>();
 	private Set<Caja> cajas = new HashSet<Caja>();
 	private Set<Trabajador> trabajadores = new HashSet<Trabajador>();
+
+	private Timestamp version;
 
 	public Agencia() {
 		// TODO Auto-generated constructor stub
@@ -156,6 +160,16 @@ public class Agencia {
 
 	public void setTrabajadores(Set<Trabajador> trabajadores) {
 		this.trabajadores = trabajadores;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override

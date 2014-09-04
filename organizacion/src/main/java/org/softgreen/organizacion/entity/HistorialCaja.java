@@ -25,8 +25,8 @@ public class HistorialCaja extends Historial implements Serializable {
 
 	private Caja caja;
 	private Set<TransaccionBovedaCaja> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCaja>();
-	//private Set<TransaccionCajaCaja> transaccionesCajaCajaOrigen = new HashSet<TransaccionCajaCaja>();
-	//private Set<TransaccionCajaCaja> transaccionesCajaCajaOrigen = new HashSet<TransaccionCajaCaja>();
+	private Set<TransaccionCajaCaja> transaccionesCajaCajaOrigen = new HashSet<TransaccionCajaCaja>();
+	private Set<TransaccionCajaCaja> transaccionesCajaCajaDestino = new HashSet<TransaccionCajaCaja>();
 	private Set<PendienteCaja> transaccionesPendienteCaja = new HashSet<PendienteCaja>();
 	private Set<TransaccionCliente> transaccionesCliente = new HashSet<TransaccionCliente>();
 
@@ -55,16 +55,6 @@ public class HistorialCaja extends Historial implements Serializable {
 		this.transaccionesBovedaCaja = transaccionesBovedaCaja;
 	}
 
-	/*@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCaja")
-	public Set<TransaccionCajaCaja> getTransaccionesCajaCaja() {
-		return transaccionesCajaCaja;
-	}
-
-	public void setTransaccionesCajaCaja(Set<TransaccionCajaCaja> transaccionesCajaCaja) {
-		this.transaccionesCajaCaja = transaccionesCajaCaja;
-	}*/
-
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCaja")
 	public Set<PendienteCaja> getTransaccionesPendienteCaja() {
@@ -83,6 +73,26 @@ public class HistorialCaja extends Historial implements Serializable {
 
 	public void setTransaccionesCliente(Set<TransaccionCliente> transaccionesCliente) {
 		this.transaccionesCliente = transaccionesCliente;
+	}
+
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCajaOrigen")
+	public Set<TransaccionCajaCaja> getTransaccionesCajaCajaOrigen() {
+		return transaccionesCajaCajaOrigen;
+	}
+
+	public void setTransaccionesCajaCajaOrigen(Set<TransaccionCajaCaja> transaccionesCajaCajaOrigen) {
+		this.transaccionesCajaCajaOrigen = transaccionesCajaCajaOrigen;
+	}
+
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCajaDestino")
+	public Set<TransaccionCajaCaja> getTransaccionesCajaCajaDestino() {
+		return transaccionesCajaCajaDestino;
+	}
+
+	public void setTransaccionesCajaCajaDestino(Set<TransaccionCajaCaja> transaccionesCajaCajaDestino) {
+		this.transaccionesCajaCajaDestino = transaccionesCajaCajaDestino;
 	}
 
 	@Override

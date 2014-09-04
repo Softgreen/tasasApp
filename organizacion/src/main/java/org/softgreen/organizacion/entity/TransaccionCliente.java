@@ -1,6 +1,7 @@
 package org.softgreen.organizacion.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,6 +47,8 @@ public class TransaccionCliente implements Serializable {
 
 	private HistorialCaja historialCaja;
 	private Set<DetalleTransaccionCliente> detalle = new HashSet<DetalleTransaccionCliente>();
+
+	private Timestamp version;
 
 	public TransaccionCliente() {
 		// TODO Auto-generated constructor stub
@@ -129,6 +133,16 @@ public class TransaccionCliente implements Serializable {
 
 	public void setDetalle(Set<DetalleTransaccionCliente> detalle) {
 		this.detalle = detalle;
+	}
+
+	@XmlTransient
+	@Version
+	public Timestamp getVersion() {
+		return version;
+	}
+
+	public void setVersion(Timestamp version) {
+		this.version = version;
 	}
 
 	@Override
