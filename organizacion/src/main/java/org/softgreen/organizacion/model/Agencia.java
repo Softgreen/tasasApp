@@ -39,6 +39,7 @@ public class Agencia {
 	private boolean estado;
 
 	private Sucursal sucursal;
+
 	private Set<Boveda> bovedas = new HashSet<Boveda>();
 	private Set<Caja> cajas = new HashSet<Caja>();
 	private Set<Trabajador> trabajadores = new HashSet<Trabajador>();
@@ -128,7 +129,7 @@ public class Agencia {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "agencia", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
 	public Set<Boveda> getBovedas() {
 		return bovedas;
 	}
@@ -138,7 +139,7 @@ public class Agencia {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "agencia", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
 	public Set<Caja> getCajas() {
 		return cajas;
 	}
@@ -148,7 +149,7 @@ public class Agencia {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "agencia", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
 	public Set<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
@@ -181,4 +182,5 @@ public class Agencia {
 			return false;
 		return true;
 	}
+
 }

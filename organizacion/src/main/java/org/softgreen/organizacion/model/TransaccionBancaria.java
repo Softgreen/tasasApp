@@ -2,7 +2,14 @@ package org.softgreen.organizacion.model;
 
 import java.math.BigDecimal;
 
-public class TransaccionBancaria extends TransaccionExterna {
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table
+@PrimaryKeyJoinColumn
+public class TransaccionBancaria extends TransaccionCliente {
 
 	/**
 	 * 

@@ -105,4 +105,35 @@ public abstract class Historial {
 		this.detalle = detalle;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fechaApertura == null) ? 0 : fechaApertura.hashCode());
+		result = prime * result + ((horaApertura == null) ? 0 : horaApertura.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Historial))
+			return false;
+		Historial other = (Historial) obj;
+		if (fechaApertura == null) {
+			if (other.fechaApertura != null)
+				return false;
+		} else if (!fechaApertura.equals(other.fechaApertura))
+			return false;
+		if (horaApertura == null) {
+			if (other.horaApertura != null)
+				return false;
+		} else if (!horaApertura.equals(other.horaApertura))
+			return false;
+		return true;
+	}
+
 }

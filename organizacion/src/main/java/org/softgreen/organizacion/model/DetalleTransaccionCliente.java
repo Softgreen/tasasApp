@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class DetalleHistorial implements Serializable {
+public class DetalleTransaccionCliente implements Serializable {
 
 	/**
 	 * 
@@ -37,9 +37,9 @@ public class DetalleHistorial implements Serializable {
 	private BigDecimal valor;
 	private int cantidad;
 
-	private Historial historial;
+	private TransaccionCliente transaccionCliente;
 
-	public DetalleHistorial() {
+	public DetalleTransaccionCliente() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -82,19 +82,19 @@ public class DetalleHistorial implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public Historial getHistorial() {
-		return historial;
+	public TransaccionCliente getTransaccionCliente() {
+		return transaccionCliente;
 	}
 
-	public void setHistorial(Historial historial) {
-		this.historial = historial;
+	public void setTransaccionCliente(TransaccionCliente transaccionCliente) {
+		this.transaccionCliente = transaccionCliente;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((historial == null) ? 0 : historial.hashCode());
+		result = prime * result + ((transaccionCliente == null) ? 0 : transaccionCliente.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
@@ -105,13 +105,13 @@ public class DetalleHistorial implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof DetalleHistorial))
+		if (!(obj instanceof DetalleTransaccionCliente))
 			return false;
-		DetalleHistorial other = (DetalleHistorial) obj;
-		if (historial == null) {
-			if (other.historial != null)
+		DetalleTransaccionCliente other = (DetalleTransaccionCliente) obj;
+		if (transaccionCliente == null) {
+			if (other.transaccionCliente != null)
 				return false;
-		} else if (!historial.equals(other.historial))
+		} else if (!transaccionCliente.equals(other.transaccionCliente))
 			return false;
 		if (valor == null) {
 			if (other.valor != null)

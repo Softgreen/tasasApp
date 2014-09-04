@@ -38,9 +38,10 @@ public class Caja {
 	private boolean estadoMovimiento;
 
 	private Agencia agencia;
-	private Set<HistorialCaja> historiales = new HashSet<HistorialCaja>(0);
-	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>(0);
-	private Set<TrabajadorCaja> trabajadorCajas = new HashSet<TrabajadorCaja>(0);
+
+	Set<HistorialCaja> historiales = new HashSet<HistorialCaja>();
+	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
+	
 
 	public Caja() {
 		// TODO Auto-generated constructor stub
@@ -112,7 +113,7 @@ public class Caja {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "caja", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caja")
 	public Set<HistorialCaja> getHistoriales() {
 		return historiales;
 	}
@@ -122,7 +123,7 @@ public class Caja {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "caja", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caja")
 	public Set<BovedaCaja> getBovedaCajas() {
 		return bovedaCajas;
 	}
@@ -131,14 +132,35 @@ public class Caja {
 		this.bovedaCajas = bovedaCajas;
 	}
 
-	@XmlTransient
-	@OneToMany(mappedBy = "caja", fetch = FetchType.LAZY)
-	public Set<TrabajadorCaja> getTrabajadorCajas() {
-		return trabajadorCajas;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
+		result = prime * result + ((denominacion == null) ? 0 : denominacion.hashCode());
+		return result;
 	}
 
-	public void setTrabajadorCajas(Set<TrabajadorCaja> trabajadorCajas) {
-		this.trabajadorCajas = trabajadorCajas;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Caja))
+			return false;
+		Caja other = (Caja) obj;
+		if (agencia == null) {
+			if (other.agencia != null)
+				return false;
+		} else if (!agencia.equals(other.agencia))
+			return false;
+		if (denominacion == null) {
+			if (other.denominacion != null)
+				return false;
+		} else if (!denominacion.equals(other.denominacion))
+			return false;
+		return true;
 	}
 
 }

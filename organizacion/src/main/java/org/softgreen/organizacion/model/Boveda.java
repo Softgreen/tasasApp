@@ -39,8 +39,9 @@ public class Boveda {
 	private boolean estado;
 
 	private Agencia agencia;
-	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>(0);
-	private Set<HistorialBoveda> historiales = new HashSet<HistorialBoveda>(0);
+
+	Set<HistorialBoveda> historiales = new HashSet<HistorialBoveda>();
+	Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
@@ -120,23 +121,23 @@ public class Boveda {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "boveda", fetch = FetchType.LAZY)
-	public Set<BovedaCaja> getBovedaCajas() {
-		return bovedaCajas;
-	}
-
-	public void setBovedaCajas(Set<BovedaCaja> bovedaCajas) {
-		this.bovedaCajas = bovedaCajas;
-	}
-
-	@XmlTransient
-	@OneToMany(mappedBy = "boveda", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "boveda")
 	public Set<HistorialBoveda> getHistoriales() {
 		return historiales;
 	}
 
 	public void setHistoriales(Set<HistorialBoveda> historiales) {
 		this.historiales = historiales;
+	}
+
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "boveda")
+	public Set<BovedaCaja> getBovedaCajas() {
+		return bovedaCajas;
+	}
+
+	public void setBovedaCajas(Set<BovedaCaja> bovedaCajas) {
+		this.bovedaCajas = bovedaCajas;
 	}
 
 	@Override

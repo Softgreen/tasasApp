@@ -33,7 +33,8 @@ public class Sucursal {
 	private String abreviatura;
 	private String ubigeo;
 	private boolean estado;
-	private Set<Agencia> agencias = new HashSet<Agencia>(0);
+
+	private Set<Agencia> agencias = new HashSet<Agencia>();
 
 	public Sucursal() {
 		// TODO Auto-generated constructor stub
@@ -97,7 +98,7 @@ public class Sucursal {
 	}
 
 	@XmlTransient
-	@OneToMany(mappedBy = "sucursal", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sucursal")
 	public Set<Agencia> getAgencias() {
 		return agencias;
 	}
@@ -130,4 +131,5 @@ public class Sucursal {
 			return false;
 		return true;
 	}
+
 }

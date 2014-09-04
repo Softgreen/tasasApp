@@ -1,38 +1,35 @@
 package org.softgreen.organizacion.model;
 
-// Generated 02-may-2014 11:48:28 by Hibernate Tools 4.0.0
-
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class PendienteCaja implements java.io.Serializable {
+@Table
+@Inheritance(strategy = InheritanceType.JOINED)
+public class TransaccionCliente implements Serializable {
 
 	/**
 	 * 
@@ -40,16 +37,17 @@ public class PendienteCaja implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	private Long numeroOperacion;
 	private Date fecha;
 	private Date hora;
-	private String moneda;
-	private BigDecimal monto;
+	private boolean estado;
 	private String observacion;
-	private String trabajador;
 
 	private HistorialCaja historialCaja;
+	private Set<DetalleTransaccionCliente> detalle = new HashSet<DetalleTransaccionCliente>();
 
-	public PendienteCaja() {
+	public TransaccionCliente() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Id
@@ -60,6 +58,14 @@ public class PendienteCaja implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getNumeroOperacion() {
+		return numeroOperacion;
+	}
+
+	public void setNumeroOperacion(Long numeroOperacion) {
+		this.numeroOperacion = numeroOperacion;
 	}
 
 	@NotNull
@@ -83,31 +89,17 @@ public class PendienteCaja implements java.io.Serializable {
 	}
 
 	@NotNull
-	@Size(min = 3, max = 3)
-	@NotBlank
-	@NotEmpty
-	public String getMoneda() {
-		return moneda;
+	@Type(type = "org.hibernate.type.TrueFalseType")
+	public boolean isEstado() {
+		return estado;
 	}
 
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
-	}
-
-	@NotNull
-	@Min(value = 0)
-	@DecimalMin(value = "0")
-	@Digits(integer = 18, fraction = 2)
-	public BigDecimal getMonto() {
-		return monto;
-	}
-
-	public void setMonto(BigDecimal monto) {
-		this.monto = monto;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	@NotNull
-	@Size(min = 0, max = 70)
+	@Size(min = 0, max = 60)
 	@NotBlank
 	@NotEmpty
 	public String getObservacion() {
@@ -116,18 +108,6 @@ public class PendienteCaja implements java.io.Serializable {
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
-	}
-
-	@NotNull
-	@Size(min = 1, max = 70)
-	@NotBlank
-	@NotEmpty
-	public String getTrabajador() {
-		return trabajador;
-	}
-
-	public void setTrabajador(String trabajador) {
-		this.trabajador = trabajador;
 	}
 
 	@NotNull
@@ -141,15 +121,22 @@ public class PendienteCaja implements java.io.Serializable {
 		this.historialCaja = historialCaja;
 	}
 
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transaccionCliente")
+	public Set<DetalleTransaccionCliente> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(Set<DetalleTransaccionCliente> detalle) {
+		this.detalle = detalle;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result + ((historialCaja == null) ? 0 : historialCaja.hashCode());
-		result = prime * result + ((hora == null) ? 0 : hora.hashCode());
-		result = prime * result + ((moneda == null) ? 0 : moneda.hashCode());
-		result = prime * result + ((monto == null) ? 0 : monto.hashCode());
+		result = prime * result + ((numeroOperacion == null) ? 0 : numeroOperacion.hashCode());
 		return result;
 	}
 
@@ -159,33 +146,18 @@ public class PendienteCaja implements java.io.Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof PendienteCaja))
+		if (!(obj instanceof TransaccionCliente))
 			return false;
-		PendienteCaja other = (PendienteCaja) obj;
+		TransaccionCliente other = (TransaccionCliente) obj;
 		if (fecha == null) {
 			if (other.fecha != null)
 				return false;
 		} else if (!fecha.equals(other.fecha))
 			return false;
-		if (historialCaja == null) {
-			if (other.historialCaja != null)
+		if (numeroOperacion == null) {
+			if (other.numeroOperacion != null)
 				return false;
-		} else if (!historialCaja.equals(other.historialCaja))
-			return false;
-		if (hora == null) {
-			if (other.hora != null)
-				return false;
-		} else if (!hora.equals(other.hora))
-			return false;
-		if (moneda == null) {
-			if (other.moneda != null)
-				return false;
-		} else if (!moneda.equals(other.moneda))
-			return false;
-		if (monto == null) {
-			if (other.monto != null)
-				return false;
-		} else if (!monto.equals(other.monto))
+		} else if (!numeroOperacion.equals(other.numeroOperacion))
 			return false;
 		return true;
 	}
